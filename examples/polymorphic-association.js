@@ -79,22 +79,13 @@ const initModels = [
               findResult = [findResult]
             }
             findResult.forEach((instance) => {
-              if (
-                instance.type === 'BankAccount' &&
-                instance.bankAccountDetails !== undefined
-              ) {
-                instance.details = instance.bankAccountDetails
-              } else if (
-                instance.type === 'Card' &&
-                instance.cardDetails !== undefined
-              ) {
-                instance.details = instance.cardDetails
-              }
-              // To prevent mistakes:
-              Reflect.deleteProperty(instance, 'bankAccountDetails')
-              Reflect.deleteProperty(instance, 'dataValues.bankAccountDetails')
-              Reflect.deleteProperty(instance, 'cardDetails')
-              Reflect.deleteProperty(instance, 'dataValues.cardDetails')
+              Account.detailsAssociations.forEach((assocName) => {
+                if (instance[assocName]) {
+                  instance.details = instance[assocName]
+                }
+                Reflect.deleteProperty(instance, assocName)
+                Reflect.deleteProperty(instance, `dataValues.${assocName}`)
+              })
             })
           },
         },
