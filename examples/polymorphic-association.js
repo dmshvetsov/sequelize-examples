@@ -2,7 +2,7 @@ const _ = require('lodash')
 const { Model, Sequelize } = require('sequelize')
 
 /**
- * Models
+ * Models setup
  */
 
 const AccountTypes = Object.freeze({
@@ -29,8 +29,8 @@ const initModels = [
 
       toJSON() {
         const plainObj = super.toJSON();
-        Object.values(AccountTypes).forEach((accType) =>
-          Reflect.deleteProperty(plainObj, `${_.camelCase(accType)}Details`)
+        Account.detailsAssociations.forEach((assocName) =>
+          Reflect.deleteProperty(plainObj, assocName)
         )
         if (plainObj.details && plainObj.details.toJSON) {
           plainObj.details = plainObj.details.toJSON();
