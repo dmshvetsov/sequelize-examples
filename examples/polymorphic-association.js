@@ -60,7 +60,7 @@ const initModels = [
         details: {
           type: DataTypes.VIRTUAL,
           get() {
-            return this.bankAccountDetails || this.cardDetails;
+            return this[Account.detailsAssociations.find(name => this[name])]
           }
         },
       },
@@ -178,6 +178,7 @@ const initModels = [
       }]
     });
     console.log('created bank account json:', bankAccount.toJSON())
+    console.log('created bank account details json:', bankAccount.details)
 
     const cardAccount = await models.Account.create(
       {
