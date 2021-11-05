@@ -78,7 +78,7 @@ const initModels = [
             if (!Array.isArray(findResult)) {
               findResult = [findResult]
             }
-            for (const instance of findResult) {
+            findResult.forEach((instance) => {
               if (
                 instance.type === 'BankAccount' &&
                 instance.bankAccountDetails !== undefined
@@ -95,7 +95,7 @@ const initModels = [
               Reflect.deleteProperty(instance, 'dataValues.bankAccountDetails')
               Reflect.deleteProperty(instance, 'cardDetails')
               Reflect.deleteProperty(instance, 'dataValues.cardDetails')
-            }
+            })
           },
         },
       }
