@@ -57,12 +57,6 @@ const initModels = [
           type: DataTypes.TEXT,
           allowNull: false,
         },
-        details: {
-          type: DataTypes.VIRTUAL,
-          get() {
-            return this[Account.detailsAssociations.find(name => this[name])]
-          }
-        },
       },
       {
         sequelize,
